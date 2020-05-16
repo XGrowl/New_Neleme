@@ -51,7 +51,7 @@
             android:layout_alignTop="@id/tv_shop_arrow"
             android:layout_toLeftOf="@id/tv_shop_arrow"
             android:maxLines="1"
-            android:text="协议只写饱饭阿斯顿飞"
+            android:text="凯越酒店餐饮"
             android:textColor="@color/white"
             android:textSize="17sp"
             android:textStyle="bold"/>

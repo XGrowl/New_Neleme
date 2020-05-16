@@ -27,11 +27,11 @@ configurations.all {
 
         def requested = details.requested
 
-        if (requested.group =='com.android.support') {
+        if (requested.group == 'com.android.support') {
 
             if (!requested.name.startsWith("multidex")) {
 
-                details.useVersion'28.0.0' //这里改为你项目使用的版本即可
+                details.useVersion '28.0.0' //这里改为你项目使用的版本即可
 
             }
 
@@ -41,7 +41,7 @@ configurations.all {
 
 }
 dependencies {
-    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -49,4 +49,8 @@ dependencies {
     implementation 'jp.wasabeef:fresco-processors:2.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
     implementation 'com.github.florent37:viewanimator:1.0.5'
+// swich图标
+    implementation 'com.ld:switchView:1.1.7'
+
+
 }

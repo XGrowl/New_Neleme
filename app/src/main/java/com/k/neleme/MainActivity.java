@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.k.neleme.Views.AddWidget;
@@ -38,13 +40,14 @@ import com.shizhefei.view.indicator.slidebar.ColorBar;
 import com.shizhefei.view.indicator.slidebar.ScrollBar;
 import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
+public class MainActivity extends BaseActivity implements AddWidget.OnAddClick{
 
     public static final String CAR_ACTION = "handleCar";
     public static final String CLEARCAR_ACTION = "clearCar";
@@ -54,6 +57,7 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
     private FirstFragment firstFragment;
     public static CarAdapter carAdapter;
     private ShopCarView shopCarView;
+    private List<FoodBean> mFoodBeans=new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -67,6 +71,7 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
         IntentFilter intentFilter = new IntentFilter(CAR_ACTION);
         intentFilter.addAction(CLEARCAR_ACTION);
         registerReceiver(broadcastReceiver, intentFilter);
+
     }
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -121,6 +126,52 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
         ((DefaultItemAnimator) carRecView.getItemAnimator()).setSupportsChangeAnimations(false);
         carAdapter = new CarAdapter(new ArrayList<FoodBean>(), this);
         carAdapter.bindToRecyclerView(carRecView);
+//        shopCarView.setOnComfirmClickListener(new ShopCarView.OnComfirmClickListener() {
+//            @Override
+//            public void onComfirmClick() {
+//                if(shopCarView.car_limit.getText().equals("     去结算     "));
+//                {
+//                    Intent intent=new Intent(mContext,orderConfirmationActivity.class);
+//                    Bundle bundle=new Bundle();
+//                    bundle.putSerializable("orerFood", (Serializable) mFoodBeans);
+//                    intent.putExtras(bundle);
+//                    startActivity(intent);
+//
+//                }
+//            }
+//        });
+//        if(shopCarView.car_limit==null)
+//            Toast.makeText(mContext,"xxxxxx",Toast.LENGTH_LONG).show();
+//        else {
+//            Toast.makeText(mContext,"sssssssssss",Toast.LENGTH_LONG).show();
+//            shopCarView.car_limit.setOnClickListener(new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    if (shopCarView.car_limit.getText().equals("     去结算     ")) ;
+//                    {
+//                        Intent intent = new Intent(mContext, orderConfirmationActivity.class);
+//                        Bundle bundle = new Bundle();
+//                        bundle.putSerializable("orerFood", (Serializable) mFoodBeans);
+//                        intent.putExtras(bundle);
+//                        startActivity(intent);
+//
+//                    }
+//                }
+//            });
+//        }
+
+    }
+    @Override
+    public void goAccount(View view) {
+        Toast.makeText(this,"点击了xxxxxxxxx按钮",Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(mContext, orderConfirmationActivity.class);
+//            Bundle bundle = new Bundle();
+//            bundle.putSerializable("orderList", (Serializable) mFoodBeans);
+     //   intent.putExtra("orderList", (Serializable) mFoodBeans);
+            startActivity(intent);
+
     }
 
     private void initViewpager() {
@@ -139,6 +190,8 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
         ViewpagerAdapter myAdapter = new ViewpagerAdapter(getSupportFragmentManager());
         indicatorViewPager.setAdapter(myAdapter);
     }
+
+
 
     private class ViewpagerAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
         private LayoutInflater inflater;
@@ -196,6 +249,8 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
             firstFragment.getFoodAdapter().notifyDataSetChanged();
         }
         List<FoodBean> flist = carAdapter.getData();
+        MyApp app= (MyApp) getApplicationContext();
+        app.setFlist(flist);
         int p = -1;
         for (int i = 0; i < flist.size(); i++) {
             FoodBean fb = flist.get(i);
@@ -254,6 +309,7 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
     }
 
     private void clearCar() {
+
         List<FoodBean> flist = carAdapter.getData();
         for (int i = 0; i < flist.size(); i++) {
             FoodBean fb = flist.get(i);

@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_margin="8dp"
-                android:text="introintrointrointrointrointrointrointrointrointrointrointrointrointrointrointrointro"
+                android:text="总之就是非常的好，很推荐，买他买他买他"
                 android:textColor="@color/white"/>
         </FrameLayout>
 

@@ -11,7 +11,7 @@ import com.k.neleme.utils.ViewUtils;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class FoodBean implements Serializable{
+public class FoodBean implements Serializable {
 
 	private int id;
 	private String name;//名

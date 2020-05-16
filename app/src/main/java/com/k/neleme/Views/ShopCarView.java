@@ -2,33 +2,46 @@ package com.k.neleme.Views;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.k.neleme.R;
+import com.k.neleme.adapters.orderFoodAdapter;
 import com.k.neleme.utils.ViewUtils;
 
 import java.math.BigDecimal;
 
 import static com.k.neleme.MainActivity.carAdapter;
 
-public class ShopCarView extends FrameLayout {
-	private TextView car_limit, tv_amount;
+public class ShopCarView extends FrameLayout{
+	public TextView car_limit, tv_amount;
 	public ImageView iv_shop_car;
 	public TextView car_badge;
 	private BottomSheetBehavior behavior;
 	public boolean sheetScrolling;
 	public View shoprl;
+	private Context mContext;
 	public int[] carLoc;
+	private OnComfirmClickListener mOnComfirmClickListener;
+public interface OnComfirmClickListener{
+	void onComfirmClick();
+}
+
+	public void setOnComfirmClickListener(OnComfirmClickListener onComfirmClickListener) {
+		mOnComfirmClickListener = onComfirmClickListener;
+	}
 
 	public void setBehavior(final BottomSheetBehavior behavior) {
 		this.behavior = behavior;
@@ -85,7 +98,7 @@ public class ShopCarView extends FrameLayout {
 		}
 	}
 
-	public void updateAmount(BigDecimal amount) {
+	public void updateAmount(final BigDecimal amount) {
 		if (amount.compareTo(new BigDecimal(0.0)) == 0) {
 			car_limit.setText("¥20 起送");
 			car_limit.setTextColor(Color.parseColor("#a8a8a8"));
@@ -103,6 +116,16 @@ public class ShopCarView extends FrameLayout {
 			iv_shop_car.setImageResource(R.drawable.shop_car);
 		} else {
 			car_limit.setText("     去结算     ");
+
+//			if (mOnComfirmClickListener!=null)
+//			{
+//				car_limit.setOnClickListener(new OnClickListener() {
+//					@Override
+//					public void onClick(View v) {
+//						Log.i("xxxx", "onClick: xxxxxxxxx");
+//					}
+//				});
+//			}
 			car_limit.setTextColor(Color.WHITE);
 			car_limit.setBackgroundColor(Color.parseColor("#59d178"));
 			findViewById(R.id.car_nonselect).setVisibility(View.GONE);
@@ -120,6 +143,8 @@ public class ShopCarView extends FrameLayout {
 			car_badge.setVisibility(View.INVISIBLE);
 		}
 	}
+
+
 
 	private class toggleCar implements OnClickListener {
 

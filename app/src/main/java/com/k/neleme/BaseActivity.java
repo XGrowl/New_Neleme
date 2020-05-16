@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 public abstract class BaseActivity extends AppCompatActivity {
 	protected Context mContext = this;
@@ -27,6 +28,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	public void goAccount(View view) {
+
+		Toast.makeText(this,"点击了按钮",Toast.LENGTH_LONG).show();
 	}
 
 
